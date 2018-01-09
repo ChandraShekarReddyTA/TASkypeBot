@@ -9,7 +9,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "apiai": "^4.0.3",
     "botbuilder": "^3.13.1",
-    "restify": "^6.3.4"
+    "restify": "^6.3.4",
+    "uniqid": "^4.1.1"
   }
 }
