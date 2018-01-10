@@ -41,7 +41,7 @@
 
 var restify = require('restify');
 var builder = require('botbuilder');
-var apiai = require('apiai');
+//var apiai = require('apiai');
 //var app = apiai('1e413c6fee0f47378cc3674561d7267a');
 //var uniqid = require('uniqid');
 
