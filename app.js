@@ -1,5 +1,8 @@
 var restify = require('restify');
 var builder = require('botbuilder');
+var apiai = require('apiai');
+var app = apiai('1e413c6fee0f47378cc3674561d7267a');
+var uniqid = require('uniqid');
 
 // Setup Restify Server
 var server = restify.createServer();
@@ -18,5 +21,20 @@ server.post('/api/messages', connector.listen());
 
 // Receive messages from the user and respond by echoing each message back (prefixed with 'You said:')
 var bot = new builder.UniversalBot(connector, function (session) {
-	session.send("You said: %s", session.message.text);
+	var request = app.textRequest(session.message.text, {
+		sessionId: uniqid()
+	});
+	const responseFromAPI = new Promise(function (resolve, reject) {
+		request.on('error', function(error) {
+			reject(error);
+		});
+		request.on('response', function(response) {
+			resolve(response.result.fulfillment.speech);
+		});
+		request.end();
+	});
+	responseFromAPI.then(function(data){
+		session.send(""+data);
+	});
+
 });
